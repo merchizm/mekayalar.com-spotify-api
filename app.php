@@ -87,12 +87,14 @@ class app
             case 'json':
                 try {
                     // check result is valid
-                    $result = $this->currentPlaying();
-                    if($result['is_playing'] == null){
+                    $result = json_decode($this->currentPlaying(), true);
+
+                    $last_response = $this->api->getLastResponse();
+                    if($result['is_playing'] === false || $last_response['status'] ==! 200 || $last_response['status'] ==! 204){ // @see https://developer.spotify.com/documentation/web-api/
                         $this->refreshToken();
                         return $this->currentPlaying();
                     }else
-                        return $result;
+                        return json_encode($result);
                 } catch (SpotifyWebAPIAuthException $ex) {
                     return json_encode(['error' => 'The access token could not be refreshed.', 'is_playing' => false]);
                 } catch (SpotifyWebAPIException $ex) { // if access token is expired, renew with refresh token and try again
@@ -124,7 +126,8 @@ class app
     {
         $this->api->setAccessToken($this->json_data['access_token']);
         $result = (array)$this->api->getMyCurrentTrack();
-
+        if(empty($result))
+            return json_encode(['is_playing' => false]);
         return json_encode(["name" => $result['item']->name, "artists" => $result['item']->artists, "is_playing" => $result["is_playing"], "url" => $result['item']->external_urls->spotify]);
     }
 
