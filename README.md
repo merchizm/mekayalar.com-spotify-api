@@ -1,1 +1,1 @@
-# mekayalar.com-spotify-api
+# mekayalar.com Spotify Now Playing API
