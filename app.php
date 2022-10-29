@@ -33,6 +33,9 @@ class app
 
     public function __construct()
     {
+        header("Access-Control-Allow-Origin: *"); // for dev mode, you should remove this line in production.
+        error_reporting(0); // disable warnings.
+
         // initialize classes
         $dotenv = Dotenv::createImmutable(__DIR__);
         $dotenv->load();
@@ -70,7 +73,6 @@ class app
     }
 
 
-    // TODO: FIX THIS FUNCTION
     /**
      * run app
      * @return false|string
@@ -128,7 +130,11 @@ class app
         $result = (array)$this->api->getMyCurrentTrack();
         if(empty($result))
             return json_encode(['is_playing' => false]);
-        return json_encode(["name" => $result['item']->name, "artists" => $result['item']->artists, "is_playing" => $result["is_playing"], "url" => $result['item']->external_urls->spotify]);
+        $artists = [];
+        foreach ($result['item']->artists as $artist) {
+            $artists[] = $artist->name;
+        }
+        return json_encode(["name" => $result['item']->name, "artists" => implode(', ', $artists), "is_playing" => $result["is_playing"], "url" => $result['item']->external_urls->spotify]);
     }
 
     public function __destruct()
