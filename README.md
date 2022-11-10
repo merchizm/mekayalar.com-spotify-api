@@ -39,28 +39,7 @@ _successfully response,_
 ```json
 {
   "name": "Злой",
-  "artists": [
-    {
-      "external_urls": {
-        "spotify": "https://open.spotify.com/artist/55jryyk7RhvMbrvoF0ndBh"
-      },
-      "href": "https://api.spotify.com/v1/artists/55jryyk7RhvMbrvoF0ndBh",
-      "id": "55jryyk7RhvMbrvoF0ndBh",
-      "name": "SLAVA MARLOW",
-      "type": "artist",
-      "uri": "spotify:artist:55jryyk7RhvMbrvoF0ndBh"
-    },
-    {
-      "external_urls": {
-        "spotify": "https://open.spotify.com/artist/0Cm90jv892OeEegB3ELmvN"
-      },
-      "href": "https://api.spotify.com/v1/artists/0Cm90jv892OeEegB3ELmvN",
-      "id": "0Cm90jv892OeEegB3ELmvN",
-      "name": "Eldzhey",
-      "type": "artist",
-      "uri": "spotify:artist:0Cm90jv892OeEegB3ELmvN"
-    }
-  ],
+  "artists": "SLAVA MARLOW, Eldzhey",
   "is_playing": true,
   "url": "https://open.spotify.com/track/0Y5v9NeTZdPbPDMdXYDWdo"
 }
